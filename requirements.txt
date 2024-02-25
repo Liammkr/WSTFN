@@ -1,0 +1,7 @@
+dhooks==1.4.0
+firebase-admin==5.0.1
+numpy==1.21.5
+opencv-python==4.5.4.60
+pyautogui==0.9.53
+pydirectinput==1.2.6
+screeninfo==0.6.7
