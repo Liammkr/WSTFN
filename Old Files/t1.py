@@ -1,4 +1,4 @@
-# main.py
+# main.p
 
 import subprocess
 import platform
