@@ -7,8 +7,8 @@ from firebase_admin import credentials, storage, db
 # Initialize Firebase Admin SDK
 cred = credentials.Certificate("creds.json")
 firebase_admin.initialize_app(cred, {
-    'storageBucket': '',
-    'databaseURL': ''
+    'storageBucket': 'logtestwst.appspot.com',
+    'databaseURL': 'https://logtestwst-default-rtdb.firebaseio.com/'
 })
 
 # Upload screenshot to Firebase Storage and Realtime Database

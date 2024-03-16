@@ -1,39 +1,82 @@
 import time
 import pyautogui
-import random
 import time
 import pydirectinput
-import screeninfo
-import cv2
-import numpy as np
 from dhooks import Webhook , File
 import os
-import pyautogui
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 from datetime import datetime
 import subprocess
 import platform
-def start_other_script():
+import re
+with open('settings.txt', 'r') as file:
+    # Read the file line by line
+    lines = file.readlines()
+    # Iterate over the lines
+    for line in lines:
+        startFN_match = re.search(r'FNSTART="([^"]+)"', line)
+        if startFN_match:
+            startFN_value = startFN_match.group(1)
+variable_to_send = "True"
+with open("var.txt", "w") as file:
+    file.write(variable_to_send)
+def start_other_script(script_name):
     try:
         if platform.system() == "Windows":
-            subprocess.Popen(["start", "cmd", "/k", "python", "screenshotbutton.py"], shell=True)
+            # Use subprocess.STARTUPINFO to hide the window
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+            subprocess.Popen(["pythonw", script_name], startupinfo=startupinfo)
         elif platform.system() == "Darwin":  # macOS
-            subprocess.Popen(["open", "-a", "Terminal", "python", "screenshotbutton.py"])
+            subprocess.Popen(["open", "-a", "Terminal", "pythonw", script_name])
         elif platform.system() == "Linux":
-            subprocess.Popen(["x-terminal-emulator", "-e", "python", "screenshotbutton.py"])
+            subprocess.Popen(["x-terminal-emulator", "-e", "pythonw", script_name])
         else:
             print("Unsupported platform:", platform.system())
     except Exception as e:
-        print("Error starting screenshotbutton.py:", e)
+        print(f"Error starting {script_name}:", e)
+
 if __name__ == "__main__":
-    start_other_script()
-cred = credentials.Certificate("creds.json")
+    scripts_to_run = ["wifioff_1.0.pyw", "glider_2.0.pyw","screenshotbutton_2.2.pyw","off_1.0.pyw"]
+    for script in scripts_to_run:
+        start_other_script(script)
+cred = credentials.Certificate("Tools/creds.json")
 firebase_admin.initialize_app(cred, {
     'databaseURL': str('')
 })
 ref = db.reference('/WSTFN')
+desktop_dir = os.path.join(os.environ['USERPROFILE'], 'Desktop')
+if startFN_value == "True":
+    # Example: Run multiple commands without opening a new cmd window
+    commands = 'cd /d {} && Fortnite.url'.format(desktop_dir)
+    subprocess.run(commands, shell=True)
+    def is_start_present(text):
+        return "PLAY" in text.lower()
+    while True:
+        screenshot = pyautogui.screenshot()
+        grayscale_image = screenshot.convert('L')
+        width, height = grayscale_image.size
+        search_region = (0, 0, width, height)
+        found_start = pyautogui.locateOnScreen('Images/play.png', grayscale=True, region=search_region, confidence=0.8)
+        if found_start:
+            pyautogui.click(found_start)
+            time.sleep(2)
+            def is_start_present2(text):
+                return "PLAY" in text.lower()
+            screenshot = pyautogui.screenshot()
+            grayscale_image = screenshot.convert('L')
+            width, height = grayscale_image.size
+            search_region = (0, 0, width, height)
+            found_start2 = pyautogui.locateOnScreen('Images/play.png', grayscale=True, region=search_region, confidence=0.8)
+            if found_start2:
+                pyautogui.click(found_start2)
+            break
+        else: 
+            pyautogui.scroll(100)
+            pyautogui.press('esc')
+            time.sleep(1)
 while True:
     hook = Webhook('')
     status = '['+str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))+'] '+'Waiting for match to start'
@@ -42,13 +85,13 @@ while True:
         'status' : status
     })
     def is_doors_present(text):
-        return "doors" in text.lower()
+        return "BATTLE" in text.lower()
     while True:
         screenshot = pyautogui.screenshot()
         grayscale_image = screenshot.convert('L')
         width, height = grayscale_image.size
         search_region = (0, 0, width, height)
-        found_doors = pyautogui.locateOnScreen('Images/doors.png', grayscale=True, region=search_region)
+        found_doors = pyautogui.locateOnScreen('Images/Battle.png', grayscale=True, region=search_region)
         if found_doors:
             status = '['+str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))+'] '+'Match Started'
             print(status)
@@ -57,7 +100,7 @@ while True:
             })
             break
         time.sleep(1)
-    pyautogui.press('7')
+    pyautogui.press('a')
     status = '['+str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))+'] '+'Closed Augments'
     print(status)
     ref.update({
@@ -65,23 +108,22 @@ while True:
     })
     pyautogui.press('m')
     time.sleep(0.5)
-    pyautogui.click(2012,1210)
+    pyautogui.click(2083,1275) # tree (2012,1210) #bush (2024,1222)
+    time.sleep(0.1)
     pyautogui.press('m')
+    pyautogui.click()
     status = '['+str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))+'] '+'Pinged Drop'
     print(status)
     ref.update({
         'status' : status
     })
-    time.sleep(random.randint(16,17))
+    time.sleep(26)
+    pyautogui.press('b')
+    time.sleep(1)
+    pyautogui.press('space')
+    time.sleep(1)
     pyautogui.keyDown('space')
-    pyautogui.keyUp('space')
-    status = '['+str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))+'] '+'Jumped From Bus'
-    print(status)
-    ref.update({
-        'status' : status
-    })
-    time.sleep(random.randint(0,1))
-    pyautogui.keyDown('space')
+    time.sleep(0.2)
     pyautogui.keyUp('space')
     status = '['+str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))+'] '+'Deployed Glider'
     print(status)
@@ -90,39 +132,21 @@ while True:
     })
     i =10
     while i > 0:
-        pydirectinput.moveRel(0, random.randint(-10000,-9000), relative=True)
+        pydirectinput.moveRel(0, 1000, relative=True)
         i-=1
     status = '['+str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))+'] '+'Positioned Camera At Floor'
     print(status)
     ref.update({
         'status' : status
     })
-    screen = screeninfo.get_monitors()[0]
-    width, height = screen.width, screen.height
-    middle_x = width // 2
-    middle_y = height // 2
-    def find_and_move_target(target_image):
-        screenshot = pyautogui.screenshot()
-        screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)
-        target_image = cv2.imread(target_image)
-        result = cv2.matchTemplate(screenshot, target_image, cv2.TM_CCOEFF_NORMED)
-        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-        top_left = max_loc
-        bottom_right = (top_left[0] + target_image.shape[1], top_left[1] + target_image.shape[0])
-        global center_y
-        global center_x
-        center_x = (top_left[0] + bottom_right[0]) // 2 
-        center_y = (top_left[1] + bottom_right[1]) // 2
-        global xdist
-        global ydist
-        xdist = abs(center_x-middle_x)
-        ydist = abs(center_y-middle_y)
-    target_image_path = "Images/marker.png"
     status = '['+str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))+'] '+'Gliding To Marker'
     print(status)
     ref.update({
         'status' : status
     })
+    variable_to_send = "False"
+    with open("var.txt", "w") as file:
+        file.write(variable_to_send)
     while True:
         x1 = 775
         y1 = 135
@@ -144,26 +168,20 @@ while True:
             ref.update({
                 'status' : status
             })
+            variable_to_send = "True"
+            with open("var.txt", "w") as file:
+                file.write(variable_to_send)
             break
-        find_and_move_target(target_image_path)
-        if xdist > 250:
-            if middle_x > center_x:
-                pyautogui.keyDown('a')
-                time.sleep(0.5)
-                pyautogui.keyUp('a')
-            if middle_x < center_x:
-                pyautogui.keyDown('d')
-                time.sleep(0.5)
-                pyautogui.keyUp('d')
-        if ydist > 250:
-            if middle_y < center_y:
-                pyautogui.keyDown('s')
-                time.sleep(0.5)
-                pyautogui.keyUp('s')
-            if middle_y > center_y:
-                pyautogui.keyDown('w')
-                time.sleep(0.5)
-                pyautogui.keyUp('w')
+        else:
+            def is_doors_present(text):
+                return "READY" in text.lower()
+            screenshot = pyautogui.screenshot()
+            grayscale_image = screenshot.convert('L')
+            width, height = grayscale_image.size
+            search_region = (0, 0, width, height)
+            found_ready = pyautogui.locateOnScreen('Images/ready3.png', grayscale=True, region=search_region, confidence=0.75)
+            if found_ready:
+                break 
     pyautogui.press('ctrl')
     status = '['+str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))+'] '+'Crouched'
     print(status)
@@ -182,7 +200,7 @@ while True:
         grayscale_image = screenshot.convert('L')
         width, height = grayscale_image.size
         search_region = (0, 0, width, height)
-        found_ready = pyautogui.locateOnScreen('Images/Readyup.png', grayscale=True, region=search_region)
+        found_ready = pyautogui.locateOnScreen('Images/ready3.png', grayscale=True, region=search_region, confidence=0.75)
         if found_ready:
             status = '['+str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))+'] '+'Eliminated'
             print(status)
@@ -209,7 +227,7 @@ while True:
         'status' : status
     })
     file = File(screenshot_path, name='screenshot.png') 
-    hook.send('@everyone Look at this:', file=file)
+    hook.send('@everyone New Placement:', file=file)
     status = '['+str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))+'] '+'Screenshot Sent'
     print(status)
     ref.update({

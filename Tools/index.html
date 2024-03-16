@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link
+      rel="icon"
+      href="https://raw.githubusercontent.com/Liammkr/Liammkr/main/WSTLOGOROUND.png"
+      type="image/png"
+    />
+    <meta charset="UTF-8" />
+    <link
+      rel="apple-touch-icon"
+      href="https://raw.githubusercontent.com/Liammkr/Liammkr/main/WSTLOGOBLACK.png"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0,viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+     <meta name="theme-color" content="#2d1959">
+    <title>WSTFN STATUS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+            body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background: linear-gradient(to bottom, #2d1959, #000000);
+        color: white;
+        font-family: Arial, sans-serif;
+      }
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+        font-family: "Arial Black", sans-serif;
+        text-align: center; /* Center the text */
+      }
+
+      #statusDisplay {
+        margin: 50px auto;
+        margin-bottom:20px;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.5);
+        max-width: 500px; /* Adjust the width as needed */
+        text-align: center; /* Center the text */
+      }
+.btn-101,
+.btn-101 *,
+.btn-101 :after,
+.btn-101 :before,
+.btn-101:after,
+.btn-101:before {
+  border: 0 solid;
+  box-sizing: border-box;
+}
+.btn-101 {
+  -webkit-tap-highlight-color: transparent;
+  background-color: #000;
+  background-image: none;
+  color: #fff;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-size: 100%;
+  font-weight: 900;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+.btn-101:disabled {
+  cursor: default;
+}
+.btn-101:-moz-focusring {
+  outline: auto;
+}
+.btn-101 svg {
+  vertical-align: middle;
+}
+.btn-101 [hidden] {
+  display: none;
+}
+.btn-101 {
+  --thickness: 0.3rem;
+  --roundness: 1.2rem;
+  --color: #eff6ff;
+  --opacity: 0.6;
+  -webkit-backdrop-filter: blur(100px);
+  backdrop-filter: blur(100px);
+  background: none;
+  background: hsla(0, 0%, 100%, 0.2);
+  border: none;
+  border-radius: var(--roundness);
+  color: var(--color);
+  cursor: pointer;
+  font-family: Poppins, "sans-serif";
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.8rem 3rem;
+  position: relative;
+}
+.btn-101:hover {
+  background: hsla(0, 0%, 100%, 0.3);
+  filter: brightness(1.2);
+}
+.btn-101:active {
+  --opacity: 0;
+  background: hsla(0, 0%, 100%, 0.1);
+}
+.btn-101 svg {
+  border-radius: var(--roundness);
+  display: block;
+  filter: url(#glow);
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.btn-101 rect {
+  fill: none;
+  stroke: var(--color);
+  stroke-width: var(--thickness);
+  stroke-linejoin: round;
+  stroke-dasharray: 185%;
+  stroke-dashoffset: 80;
+  -webkit-animation: snake 2s linear infinite;
+  animation: snake 2s linear infinite;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.2s;
+  width: 100%;
+}
+.btn-101:hover rect {
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  opacity: var(--opacity);
+}
+@-webkit-keyframes snake {
+  to {
+    stroke-dashoffset: 370%;
+  }
+}
+@keyframes snake {
+  to {
+    stroke-dashoffset: 370%;
+  }
+}
+
+
+      /* Style the icon */
+      #statusIcon {
+        width: auto; /* Adjust the size as needed */
+        height: auto;
+        margin: 20px auto; /* Center the icon horizontally and add some space around */
+      }
+
+      #statusImageContainer {
+        margin-top: 10px; /* Add some space between status display and image */
+        text-align: center; /* Center the image horizontally */
+      }
+
+      #statusImage {
+        width: 70%; /* Adjust the size as needed */
+        height: 80%;
+        padding-top: 5px;
+        
+      }
+
+      #setTakessButton {
+        margin: 20px auto; /* Center the button horizontally */
+        cursor: pointer;
+        font-size: 16px;
+      }
+      @media only screen and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3) {
+        body {
+          overflow: hidden; /* hide overflow for iPhone */
+          background: linear-gradient(to bottom, #2d1959, #000000);
+        }
+        #statusImage{
+        width: 100%; /* Adjust the size as needed */
+        height: auto;
+        padding-top: 20px;
+        padding-bottom : 270px;
+        }
+      }
+      .button-container {
+        text-align: center; 
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo">‎ </div>
+    <div class="logo">WSTFN STATUS</div>
+
+    <div id="statusDisplay">
+      <!-- WSTFN Status -->
+      <!-- Status will be displayed here -->
+      Status: <span id="statusText">Loading...</span>
+    </div>
+    <div class="button-container">
+    <button id="setTakessButton" class="btn-101">
+      Take Screenshot
+    </button>
+    <button id="powerOffButton" class="btn-101"><i class="fa fa-power-off"></i>
+    </button>
+    </div>
+    <div id="statusImageContainer">
+      <!-- Image will be displayed here -->
+      <img id="statusImage" src="" alt="Image Outdated" />
+    </div>
+
+    <!-- Include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+ 
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      var database = firebase.database();
+
+      // Read initial data and update status
+      database
+        .ref("WSTFN")
+        .once("value")
+        .then(function (snapshot) {
+          var data = snapshot.val();
+          console.log(data); // Do something with the data
+          updateStatus(data);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+
+      // Update status whenever there's a change in the database
+      database.ref("WSTFN").on("value", function (snapshot) {
+        var data = snapshot.val();
+        updateStatus(data);
+      });
+
+      // Set takess to True when button is clicked
+      document.getElementById("setTakessButton").addEventListener("click", function () {
+        button = this
+        database.ref("WSTFN").update({ takess: true })
+          .then(function () {
+            // Set button text to "Loading" after successful update
+            button.textContent = "Loading...";
+          })
+          .catch(function (error) {
+            console.error("Error updating takess:", error);
+            button.disabled = false; // Re-enable the button if update fails
+          });
+
+      });
+      document.getElementById("powerOffButton").addEventListener("click", function () {
+      var result = confirm("Are you sure you want to power off?");
+      if (result) {
+        // User clicked "OK"
+        // Perform power off action
+        database.ref("WSTFN").update({ takess: 'off' });
+      } else {
+        // User clicked "Cancel"
+        // Do nothing or provide feedback to the user
+      }
+      });
+
+      function updateStatus(data) {
+        var statusElement = document.getElementById("statusText");
+        var imageElement = document.getElementById("statusImage");
+
+        // Extract status and image URL from data (you might need to adjust this based on your JSON structure)
+        var status = data && data.status ? data.status : "Unknown";
+        var imageUrl = data && data.Current_SS ? data.Current_SS : "";
+        var takess = data && data.takess ? data.takess : false;
+
+
+        // Update the status text
+        statusElement.textContent = status;
+
+        // Update the image
+        imageElement.src = imageUrl;
+        setTakessButton.textContent = takess ? "Loading..." : "Take Screenshot";
+      }
+    </script>
+  </body>
+</html>
